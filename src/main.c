@@ -70,6 +70,7 @@ int getArgs(char line_in[], char *charray_out[]) {
  *          : list of clobbered registers
  *          );
  */
+
 int changedir(const char path[]) {
     int result;
     asm("syscall" : "=a"(result) : "a"(80), "D"(path) : "rcx", "r11", "memory");
