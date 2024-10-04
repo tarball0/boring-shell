@@ -9,5 +9,3 @@ run `make` inside the directory and `./boring`
 
 (you might need to install gnu readline idk)
 
-#### ?
-pls don't hate me richard stallman
