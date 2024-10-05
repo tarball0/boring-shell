@@ -9,3 +9,5 @@ run `make` inside the directory and `./boring`
 
 (you might need to install gnu readline idk)
 
+### ?
+what on earth even is POSIX?
