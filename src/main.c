@@ -20,24 +20,25 @@
 int getArgs(char *, char **);
 int changedir(const char *);
 int getpwd(char *);
+int getuserandhost(char *);
 int execute(char *, char **);
 
 /* main :D */
 int main(int argc, char *argv[]) {
-    char prompt[] = " >>> ";
+	char prompt[256];
     char *commandarr[32];
     char command[2048] = "";
     char *command_buf = "";
-    char exe[32], pwd[64];
+    char exe[32], pwd[64], userhost[256];
     int len;
+	getuserandhost(userhost);
     while (strcmp(exe, "exit") != 0) {
         getpwd(pwd);
-        strcat(pwd, prompt);
-        if ((command_buf = readline(pwd)) == NULL) {
+		sprintf(prompt, "%s %s $ ", userhost, pwd);
+        if ((command_buf = readline(prompt)) == NULL) {
             printf("error reading from stdin");
             return 1;
         }
-
         add_history(command_buf);
         strcpy(command, command_buf);
         free(command_buf);
@@ -116,4 +117,13 @@ int execute(char *command, char **opts_arr) {
     }
     printf("\n");
     return 0;
+}
+
+int getuserandhost(char* userathost){
+	char uname[256];
+	char hostname[256];
+	gethostname(hostname, 256);
+	getlogin_r(uname,256);
+	sprintf(userathost, "%s@%s", uname, hostname);
+	return 0;
 }
