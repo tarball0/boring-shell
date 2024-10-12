@@ -6,22 +6,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <sys/wait.h>
-#include <unistd.h>
-
 #include <readline/history.h>
 #include <readline/readline.h>
+
+#include "boring.h"
 
 /* Escape Sequence that clears the terminal */
 #define clear() printf("\033[H\033[J")
 
-/* Function Declarations */
-int getArgs(char *, char **);
-int changedir(const char *);
-int getpwd(char *);
-int getuserandhost(char *);
-int execute(char *, char **);
 
 /* main :D */
 int main(int argc, char *argv[]) {
@@ -29,8 +21,7 @@ int main(int argc, char *argv[]) {
     char *commandarr[32];
     char command[2048] = "";
     char *command_buf = "";
-    char exe[32], pwd[64], userhost[256];
-    int len;
+    char exe[32], pwd[64], userhost[128];
 	getuserandhost(userhost);
     while (strcmp(exe, "exit") != 0) {
         getpwd(pwd);
@@ -59,71 +50,4 @@ int main(int argc, char *argv[]) {
 
     }
     return 0;
-}
-
-/* Function definitions */
-int getArgs(char line_in[], char *charray_out[]) {
-    char *in_ptr = line_in;
-    int i = 0;
-    while (i < 32 && (charray_out[i] = strsep(&in_ptr, " ")) != NULL) {
-        i++;
-    }
-    charray_out[i + 1] = NULL;
-
-    return i;
-}
-
-/* Messing around with extended inline asm
- * this is what it's supposed to be:
- *
- *        asm ( assembler template
- *          : output operands
- *          : input operands
- *          : list of clobbered registers
- *          );
- */
-
-int changedir(const char path[]) {
-    int result;
-    asm("syscall" : "=a"(result) : "a"(80), "D"(path) : "rcx", "r11", "memory");
-
-    /* rcx and r11 are always clobbered by the syscall
-     * The syscall instruction uses rcx to store the address of the next
-     * instruction to return to, and r11 to save the value of the rflags
-     * register. These values will then be restored by the sysret instruction.
-     */
-
-    return result;
-}
-
-int getpwd(char *pwd) {
-    asm("syscall" : : "a"(79), "D"(pwd), "S"(64) : "rcx", "r11", "memory");
-
-    return 0;
-}
-
-int execute(char *command, char **opts_arr) {
-    int exec_status;
-
-    if (fork() == 0) {
-        exec_status = execvp(command, opts_arr);
-
-        if (exec_status == -1) {
-            printf("could not execute\n");
-            return 1;
-        }
-    } else {
-        wait(NULL);
-    }
-    printf("\n");
-    return 0;
-}
-
-int getuserandhost(char* userathost){
-	char uname[256];
-	char hostname[256];
-	gethostname(hostname, 256);
-	getlogin_r(uname,256);
-	sprintf(userathost, "%s@%s", uname, hostname);
-	return 0;
 }
