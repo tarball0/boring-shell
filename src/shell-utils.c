@@ -33,6 +33,25 @@ int execute(char *command, char **opts_arr) {
     return 0;
 }
 
+int replaceWithTilde(char *pwd) {
+    int uname_size, pwd_size;
+    char uname[128];
+    char homedir[256];
+    pwd_size = strlen(pwd);
+    getlogin_r(uname, 128);
+	sprintf(homedir, "/home/%s", uname);
+
+	if (strncmp(homedir, pwd, strlen(homedir)) == 0){
+		uname_size = strlen(uname);
+		uname_size += 5;
+		memmove(pwd, pwd + uname_size, pwd_size - uname_size + 1);
+		pwd[0] = '~';
+		return 0;
+	}
+	return -1;
+
+}
+
 int getuserandhost(char *userathost) {
     char uname[256];
     char hostname[256];

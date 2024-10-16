@@ -17,14 +17,14 @@
 
 /* main :D */
 int main(int argc, char *argv[]) {
-	char prompt[256];
     char *commandarr[32];
     char command[2048] = "";
     char *command_buf = "";
-    char exe[32], pwd[64], userhost[128];
+    char exe[32], pwd[64], userhost[128], prompt[256];
 	getuserandhost(userhost);
     while (strcmp(exe, "exit") != 0) {
         getpwd(pwd);
+		replaceWithTilde(pwd);
 		sprintf(prompt, "%s %s $ ", userhost, pwd);
         if ((command_buf = readline(prompt)) == NULL) {
             printf("error reading from stdin");
