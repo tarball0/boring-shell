@@ -33,11 +33,11 @@ int execute(char *command, char **opts_arr) {
     return 0;
 }
 
-int getuserandhost(char* userathost){
-	char uname[256];
-	char hostname[256];
-	gethostname(hostname, 256);
-	getlogin_r(uname,256);
-	sprintf(userathost, "%s@%s", uname, hostname);
-	return 0;
+int getuserandhost(char *userathost) {
+    char uname[256];
+    char hostname[256];
+    gethostname(hostname, 256);
+    getlogin_r(uname, 256);
+    sprintf(userathost, "%s@%s", uname, hostname);
+    return 0;
 }
