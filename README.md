@@ -15,7 +15,7 @@ Debian Based:
 sudo apt-get install libreadline6 libreadline6-dev
 ```  
 ### Run make  
-run `make` inside the directory and `./boring`  
+run `make` inside the directory and then run `./boring`  
 
 ## ?
 what on earth even is POSIX?
