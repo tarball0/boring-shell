@@ -7,7 +7,7 @@ This was just a little one-day project to teach myself gcc inline assembly and f
 ## Running
 install the gnu readline library  
 ```sudo pacman -S readline```  
-or
+or  
 ```sudo apt-get install libreadline6 libreadline6-dev```  
 
 run `make` inside the directory and `./boring`  
