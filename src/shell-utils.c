@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
@@ -18,16 +20,20 @@ int getArgs(char line_in[], char *charray_out[]) {
 
 int execute(char *command, char **opts_arr) {
     int exec_status;
+	pid_t pid = fork();
 
-    if (fork() == 0) {
+    if (pid == 0) {
         exec_status = execvp(command, opts_arr);
 
         if (exec_status == -1) {
             printf("could not execute\n");
-            return 1;
+			exit(1);
         }
-    } else {
+    } else if (pid > 0) {
         wait(NULL);
+    } else {
+    	printf("fork failed\n");
+		return 1;
     }
     printf("\n");
     return 0;
