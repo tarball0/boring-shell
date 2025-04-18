@@ -8,7 +8,7 @@ int getpwd(char *);
 // shell-utils.c
 int replaceWithTilde(char *);
 int getuserandhost(char *);
-int execute(char *, char **);
+int execute(char *);
 int getArgs(char *, char **);
 
 #endif // !BORING_H

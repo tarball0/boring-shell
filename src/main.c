@@ -17,12 +17,11 @@
 
 /* main :D */
 int main(int argc, char *argv[]) {
-    char *commandarr[32];
     char command[2048] = "";
     char *command_buf = "";
-    char exe[32], pwd[64], userhost[128], prompt[256];
+    char pwd[64], userhost[128], prompt[256];
 	getuserandhost(userhost);
-    while (strcmp(exe, "exit") != 0) {
+    while (strcmp(command, "exit") != 0) {
         getpwd(pwd);
 		replaceWithTilde(pwd);
 		sprintf(prompt, "%s %s $ ", userhost, pwd);
@@ -36,17 +35,9 @@ int main(int argc, char *argv[]) {
 
         if (strcmp(command, "clear") == 0) {
             clear();
-        }
-
-        getArgs(command, commandarr);
-        strcpy(exe, commandarr[0]);
-        if (strcmp(exe, "cd") == 0) {
-            changedir(commandarr[1]);
-        }
-
-        else if (strcmp(command, "exit") != 0) {
-            execute(exe, commandarr);
-        }
+        } else {
+			execute(command);
+		}
 
     }
     return 0;
