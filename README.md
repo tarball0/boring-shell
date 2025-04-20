@@ -1,21 +1,22 @@
 # `boring-shell`
-
-I called it the boring shell because there isn't really anything special about it. I mean, you would be better off using literally any other shell.  
-
-This was just a little one-day project to teach myself gcc inline assembly and forking in c, which I can say I achieved (The bare minimum, at least.)
+A very barebones, basic CLI shell. Integrated with [Clearch](https://github.com/The-Capstone-Project/Clearch)!  
+Everytime an unknown command is passed, it gets redirected to clearch to provide helpful insight and corrections.  
+This way you can directly ask the shell questions and receive help without sacrificing it's core functionality.
 
 ## Running
 ### Install the gnu readline library  
 Arch Based:
-```
+```sh
 sudo pacman -S readline
 ```  
 Debian Based:  
-```
+```sh
 sudo apt-get install libreadline6 libreadline6-dev
 ```  
-### Run make  
-run `make` inside the directory and then run `./boring`  
+### Run install script  
+``` sh
+sudo ./install.sh
+```
 
 ## ?
 what on earth even is POSIX?
