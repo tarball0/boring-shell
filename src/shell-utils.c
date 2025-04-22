@@ -32,6 +32,7 @@ int execute(char *command) {
             exec_status = execvp(exe, commandarr);
 
             if (exec_status == -1) {
+				printf("aaah");
 				execl("/usr/bin/clearch", "clearch", command, NULL);
 				exit(1);
             }
