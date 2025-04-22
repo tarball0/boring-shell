@@ -9,6 +9,6 @@ int getpwd(char *);
 int replaceWithTilde(char *);
 int getuserandhost(char *);
 int execute(char *);
-int getArgs(char *, char **);
+int getArgs(char *, char **, char **);
 
 #endif // !BORING_H

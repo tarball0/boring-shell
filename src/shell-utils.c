@@ -7,10 +7,12 @@
 
 #include "boring.h"
 
-int getArgs(char line_in[], char *charray_out[]) {
+int getArgs(char line_in[], char *charray_out[], char *prompt[]) {
     char *in_ptr = line_in;
     int i = 0;
-    while (i < 32 && (charray_out[i] = strsep(&in_ptr, " ")) != NULL) {
+	prompt[i] = "clearch";
+    while (i < 1028 && (charray_out[i] = strsep(&in_ptr, " ")) != NULL) {
+		prompt[i+1] = charray_out[i];
         i++;
     }
     charray_out[i + 1] = NULL;
@@ -20,8 +22,8 @@ int getArgs(char line_in[], char *charray_out[]) {
 
 int execute(char *command) {
     int exec_status;
-    char exe[32], *commandarr[32];
-    getArgs(command, commandarr);
+    char exe[1028], *commandarr[1028], *inprompt[1028];
+    getArgs(command, commandarr, inprompt);
     strcpy(exe, commandarr[0]);
     if (strcmp(exe, "cd") == 0) {
         changedir(commandarr[1]);
@@ -32,8 +34,7 @@ int execute(char *command) {
             exec_status = execvp(exe, commandarr);
 
             if (exec_status == -1) {
-				printf("aaah");
-				execl("/usr/bin/clearch", "clearch", command, NULL);
+				execv("/usr/bin/clearch", inprompt);
 				exit(1);
             }
         } else if (pid > 0) {
