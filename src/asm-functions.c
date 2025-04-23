@@ -1,4 +1,6 @@
 #include "boring.h"
+#include <stdio.h>
+#include <asm-generic/errno-base.h>
 
 /* Messing around with extended inline asm
  * this is what it's supposed to be:
@@ -13,6 +15,9 @@
 int changedir(const char path[]) {
     int result;
     asm("syscall" : "=a"(result) : "a"(80), "D"(path) : "rcx", "r11", "memory");
+	if (result == -ENOENT) {
+		printf("cd: no such file or directory: %s\n", path);
+	}
 
     /* rcx and r11 are always clobbered by the syscall
      * The syscall instruction uses rcx to store the address of the next
