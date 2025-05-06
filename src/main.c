@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <readline/history.h>
 #include <readline/readline.h>
+#include <unistd.h>
 
 #include "boring.h"
 
@@ -19,8 +20,12 @@
 int main(int argc, char *argv[]) {
     char command[2048] = "";
     char *command_buf = "";
-    char pwd[64], userhost[128], prompt[256];
+    char pwd[64], userhost[128], prompt[256], user[128], historydir[256];
+	getlogin_r(user, 128);
+	sprintf(historydir, "/home/%s/.boring_history", user);
 	getuserandhost(userhost);
+	FILE *fp = fopen(historydir, "ab+");
+
     while (strcmp(command, "exit") != 0) {
         getpwd(pwd);
 		replaceWithTilde(pwd);
@@ -32,6 +37,7 @@ int main(int argc, char *argv[]) {
         add_history(command_buf);
         strcpy(command, command_buf);
         free(command_buf);
+		fprintf(fp, "%s\n", command);
 
         if (strcmp(command, "clear") == 0) {
             clear();
@@ -40,5 +46,6 @@ int main(int argc, char *argv[]) {
 		}
 
     }
+	fclose(fp);
     return 0;
 }
