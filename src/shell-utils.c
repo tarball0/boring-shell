@@ -10,9 +10,9 @@
 int getArgs(char line_in[], char *charray_out[], char *prompt[]) {
     char *in_ptr = line_in;
     int i = 0;
-	prompt[i] = "clearch";
+    prompt[i] = "clearch";
     while (i < 1028 && (charray_out[i] = strsep(&in_ptr, " ")) != NULL) {
-		prompt[i+1] = charray_out[i];
+        prompt[i + 1] = charray_out[i];
         i++;
     }
     charray_out[i + 1] = NULL;
@@ -34,8 +34,8 @@ int execute(char *command) {
             exec_status = execvp(exe, commandarr);
 
             if (exec_status == -1) {
-				execv("/usr/bin/clearch", inprompt);
-				exit(1);
+                execv("/usr/bin/clearch", inprompt);
+                exit(1);
             }
         } else if (pid > 0) {
             wait(NULL);
@@ -45,7 +45,7 @@ int execute(char *command) {
         }
         printf("\n");
     }
-	return 0;
+    return 0;
 }
 
 int replaceWithTilde(char *pwd) {
