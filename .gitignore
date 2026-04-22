@@ -6,6 +6,3 @@
 
 # Unignore all dirs
 !*/
-
-!bins/*
-!resources/*
