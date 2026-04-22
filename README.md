@@ -1,7 +1,6 @@
 # `boring-shell`
-A very barebones, basic CLI shell. Integrated with [Clearch](https://github.com/The-Capstone-Project/Clearch)!  
-Everytime an unknown command is passed, it gets redirected to clearch to provide helpful insight and corrections.
-This way you can directly ask the shell questions and receive help without sacrificing it's core functionality.
+A very barebones, basic CLI shell.  
+I made this shell to teach myself systems programming and gcc inline assembly. Safe to say i learnt a lot.
 
 ## Running
 ### Install the gnu readline library  
