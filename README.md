@@ -12,7 +12,8 @@ Debian Based:
 ```sh
 sudo apt-get install libreadline6 libreadline6-dev
 ```  
-### Run make (with sudo because it compiles to `/usr/local/bin/boring`)
+### Run make  
+(with sudo because it compiles to `/usr/local/bin/boring`)
 ``` sh
 sudo make
 ```
