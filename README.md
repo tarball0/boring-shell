@@ -12,9 +12,9 @@ Debian Based:
 ```sh
 sudo apt-get install libreadline6 libreadline6-dev
 ```  
-### Run install script  
+### Run make (with sudo because it compiles to `/usr/local/bin/boring`)
 ``` sh
-sudo ./install.sh
+sudo make
 ```
 ### Then just run it.
 run `boring` :)
