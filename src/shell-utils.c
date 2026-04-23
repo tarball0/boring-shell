@@ -39,7 +39,7 @@ int execute(char *command) {
         } else if (pid > 0) {
             wait(NULL);
         } else {
-            printf("fork failed\n");
+            fprintf(stderr, "fork failed\n");
             return 1;
         }
         printf("\n");
